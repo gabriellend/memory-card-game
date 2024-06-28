@@ -2,8 +2,18 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: darkred;
-  background-color: pink;
+  color: white;
+  background-color: #F4A460; /* Base color for cheetah background */
+  background-image:
+    radial-gradient(circle at 10% 10%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
+    radial-gradient(circle at 30% 20%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
+    radial-gradient(circle at 50% 30%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
+    radial-gradient(circle at 70% 40%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
+    radial-gradient(circle at 90% 50%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
+    radial-gradient(circle at 20% 70%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
+    radial-gradient(circle at 40% 80%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
+    radial-gradient(circle at 60% 90%, #000000 0%, #000000 5%, transparent 5%, transparent 100%);
+  background-size: 100px 100px;
 }
 
 body {
@@ -21,11 +31,12 @@ body {
 }
 
 .header {
-  border: 1px solid darkRed;
   border-radius: 40px;
   display: flex;
   justify-content: space-between;
   padding: 15px;
+  margin-bottom: 20px;
+  background-color: black;
 }
 
 .header-left {
@@ -57,6 +68,90 @@ h3 {
   font-size: 1.5em;
   line-height: 1.1;
   margin: 0;
+}
+
+.game {
+  display: flex;
+  min-height: 75vh;
+  border-radius: 40px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  gap: 15px;
+  background-color: black;
+}
+
+@keyframes dot-blink {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.loading-text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.loading-text .dot {
+  animation: dot-blink 1.4s infinite;
+}
+
+.loading-text .dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-text .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-text .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.cat-card {
+  display: flex;
+  flex: 1 1 200px;
+  flex-direction: column;
+  border-radius: 40px;
+  overflow: hidden;
+  height: 200px;
+}
+
+.img-container {
+  flex: 1;
+  background-color: white;
+  overflow: hidden;
+}
+
+.img-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.cat-name {
+  height: 30px;
+  background-color: #F4A460;
+  margin: 0;
+  color: black;
+  font-weight: bold
 }
 
 button {
