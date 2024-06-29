@@ -20,7 +20,7 @@ export const getCats = async() => {
             id: cat.id,
             url: cat.url,
         }))
-        console.log("Transformed: ", JSON.stringify(transformed, null, 2));
+        // console.log("Transformed: ", JSON.stringify(transformed, null, 2));
         return transformed;
     } catch(error) {
         console.log({error})

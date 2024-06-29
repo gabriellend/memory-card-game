@@ -4,7 +4,6 @@ import { getCats } from "./api";
 export const useCats = () => {
     const [cats, setCats] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchCats = async() => {
@@ -12,7 +11,7 @@ export const useCats = () => {
                 const catData = await getCats();
                 setCats(catData);
             } catch (error) {
-                setError(error);
+                console.log(error);
             } finally {
                 setLoading(false);
             }
@@ -21,5 +20,5 @@ export const useCats = () => {
         fetchCats()
     }, []);
 
-    return {cats, loading, error};
+    return {cats, loading};
 }
