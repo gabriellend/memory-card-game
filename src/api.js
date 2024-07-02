@@ -1,5 +1,6 @@
 const headers = new Headers({
   "Content-Type": "application/json",
+  "x-api-key": import.meta.env.VITE_API_KEY
 });
 
 var requestOptions = {

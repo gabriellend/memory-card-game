@@ -15,6 +15,7 @@ function App() {
   const [outcome, setOutcome] = useState(null);
 
   useEffect(() => {
+    // console.log("API:", import.meta.env.VITE_API_KEY)
     const fetchCats = async() => {
         try {
             const catData = await getCats();
