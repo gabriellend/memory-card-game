@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { useCats } from './hooks';
+import { useState, useRef, useEffect } from 'react';
+import { getCats } from './api';
 import { shuffleArray } from './utils';
 import './App.css'
 import Modal from './components/Modal';
@@ -9,9 +9,25 @@ function App() {
   const [bestScore, setBestScore] = useState(0);
   const currentScoreRef = useRef(0);
   const bestScoreRef = useRef(0);
-  const {cats, loading} = useCats();
+  const [cats, setCats] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [clickedCatIds, setClickedCatIds] = useState([])
   const [outcome, setOutcome] = useState(null);
+
+  useEffect(() => {
+    const fetchCats = async() => {
+        try {
+            const catData = await getCats();
+            setCats(catData);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+  
+    fetchCats()
+  }, []);
 
   const handleClick = (catID) => {
     if (!clickedCatIds.includes(catID)) {
@@ -20,9 +36,7 @@ function App() {
         if (updatedIds.length === cats.length) {
           setOutcome('remembered')
         } else {
-          const randomizedCats = shuffleArray(cats);
-          // this doesn't exist, rework useCats
-          setCats(randomizedCats);
+          randomizeCats(cats);
         }
 
         return updatedIds;
@@ -38,6 +52,23 @@ function App() {
     } else {
       setOutcome('furrgot');
     }
+  }
+
+  const randomizeCats = (catsArray) => {
+    const randomizedCats = shuffleArray(catsArray);
+    setCats(randomizedCats);
+  }
+
+  const startNewGame = () => {
+    currentScoreRef.current = 0;
+    setCurrentScore(0);
+    setOutcome(null);
+    randomizeCats(cats);
+    setClickedCatIds([]);
+  }
+
+  const endGame = () => {
+    setOutcome(null);
   }
 
   return (
@@ -63,17 +94,17 @@ function App() {
           </div>
         : cats.length > 0
           ? cats.map(cat => (
-          <div key={cat.id} className='cat-card' onClick={() => handleClick(cat.id)}>
-            <div className='img-container'>
-              <img src={cat.url} alt={cat.name} />
+            <div key={cat.id} className='cat-card' onClick={() => handleClick(cat.id)}>
+              <div className='img-container'>
+                <img src={cat.url} alt={cat.name} />
+              </div>
+              <p className='cat-name'>{cat.name}</p>
             </div>
-            <p className='cat-name'>{cat.name}</p>
-          </div>
-        ))
-        : <p>{`Sorry, couldn't fetch cats :(`}</p>
+          ))
+          : <p>{`Sorry, couldn't fetch cats :(`}</p>
       }
       {outcome && (
-        <Modal outcome={outcome}></Modal>
+        <Modal outcome={outcome} startNewGame={startNewGame} endGame={endGame}></Modal>
       )}
      </div>
     </>

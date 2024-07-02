@@ -20,8 +20,18 @@ export const getCats = async() => {
             id: cat.id,
             url: cat.url,
         }))
-        // console.log("Transformed: ", JSON.stringify(transformed, null, 2));
-        return transformed;
+
+        const uniqueNames = new Set();
+        const uniqueCats = transformed.filter(cat => {
+            if (!uniqueNames.has(cat.name.toLowerCase())) {
+                uniqueNames.add(cat.name.toLowerCase());
+                return true;
+            }
+            return false;
+        });
+
+        // console.log("Unique Cats: ", JSON.stringify(uniqueCats, null, 2));
+        return uniqueCats;
     } catch(error) {
         console.log({error})
         return [];

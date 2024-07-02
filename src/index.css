@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
   color: white;
-  background-color: #F4A460; /* Base color for cheetah background */
+  background-color: #F4A460;
   background-image:
     radial-gradient(circle at 10% 10%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
     radial-gradient(circle at 30% 20%, #000000 0%, #000000 5%, transparent 5%, transparent 100%),
